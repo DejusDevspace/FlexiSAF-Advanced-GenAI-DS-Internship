@@ -8,7 +8,7 @@ class EncoderCNN(nn.Module):
     The encoder uses a pre-trained CNN (ResNet) to extract image features.
     The CNN converts images into fixed-size feature vectors.
     """
-    def __init__(self, embed_size: int):
+    def __init__(self, embed_size):
         super(EncoderCNN, self).__init__()
 
         # Load pre-trained ResNet50 model
@@ -22,7 +22,7 @@ class EncoderCNN(nn.Module):
         self.linear = nn.Linear(resnet.fc.in_features, embed_size)
         self.bn = nn.BatchNorm1d(embed_size, momentum=0.01)
 
-    def forward(self, images: tuple) -> tuple:
+    def forward(self, images):
         """
         Extract feature vectors from images.
         Args:

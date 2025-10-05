@@ -1,26 +1,31 @@
 import torch
 import torch.nn as nn
-import torchvision.models as models
 
 
 class DecoderRNN(nn.Module):
     """
-    Decoder generates captions word-by-word using LSTM.
-    Takes image features and previously generated words as input.
+    The decoder generates captions word-by-word using LSTM.
+    It takes image features and previously generated words as input.
     """
-    def __init__(self, embed_size, hidden_size, vocab_size, num_layers=1):
+    def __init__(
+        self,
+        embed_size: int,
+        hidden_size: int,
+        vocab_size: int,
+        num_layers=1
+    ):
         super(DecoderRNN, self).__init__()
         self.embed_size = embed_size
         self.hidden_size = hidden_size
         self.vocab_size = vocab_size
 
-        # Word embedding layer converts word indices to vectors
+        # Convert word indices to vectors
         self.embed = nn.Embedding(vocab_size, embed_size)
 
-        # LSTM generates captions based on image features and previous words
+        # Define LSTM
         self.lstm = nn.LSTM(embed_size, hidden_size, num_layers, batch_first=True)
 
-        # Linear layer maps LSTM output to vocabulary
+        # Linear layer to map LSTM output to vocabulary
         self.linear = nn.Linear(hidden_size, vocab_size)
 
     def forward(self, features, captions):
@@ -36,17 +41,16 @@ class DecoderRNN(nn.Module):
         embeddings = self.embed(captions[:, :-1])
 
         # Concatenate image features with word embeddings
-        # features.unsqueeze(1) adds time dimension: (batch, 1, embed_size)
         embeddings = torch.cat((features.unsqueeze(1), embeddings), dim=1)
 
         # Pass through LSTM
-        hiddens, _ = self.lstm(embeddings)
+        hidden, _ = self.lstm(embeddings)
 
         # Generate predictions for each word
-        outputs = self.linear(hiddens)
+        outputs = self.linear(hidden)
         return outputs
 
-    def sample(self, features, max_length=20):
+    def sample(self, features, max_length: int = 20):
         """
         Generate captions using greedy search (for inference).
         Args:
@@ -56,15 +60,15 @@ class DecoderRNN(nn.Module):
             captions: list of word indices
         """
         captions = []
-        inputs = features.unsqueeze(1)  # (batch_size, 1, embed_size)
+        inputs = features.unsqueeze(1)
         states = None  # Initial hidden state
 
         for i in range(max_length):
             # Forward pass through LSTM
-            hiddens, states = self.lstm(inputs, states)
-            outputs = self.linear(hiddens.squeeze(1))
+            hidden, states = self.lstm(inputs, states)
+            outputs = self.linear(hidden.squeeze(1))
 
-            # Get word with highest probability
+            # Get word with the highest probability
             _, predicted = outputs.max(1)
             captions.append(predicted.item())
 
