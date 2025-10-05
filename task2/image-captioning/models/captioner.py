@@ -8,7 +8,13 @@ class ImageCaptioningModel(nn.Module):
     Complete Image Captioning model combining encoder and decoder.
     """
 
-    def __init__(self, embed_size, hidden_size, vocab_size, num_layers=1):
+    def __init__(
+        self,
+        embed_size: int,
+        hidden_size: int,
+        vocab_size: int,
+        num_layers=1
+    ):
         super(ImageCaptioningModel, self).__init__()
         self.encoder = EncoderCNN(embed_size)
         self.decoder = DecoderRNN(embed_size, hidden_size, vocab_size, num_layers)
