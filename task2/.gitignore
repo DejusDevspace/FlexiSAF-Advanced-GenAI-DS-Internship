@@ -1,3 +1,6 @@
 # Dataset files
 image-captioning/dataset/
 image-captioning/artifacts/
+
+# Logging and checkpoints
+image-captioning/runs/

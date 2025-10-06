@@ -16,21 +16,21 @@ from utils.helpers import get_data_loader
 logger = logging.getLogger(__name__)
 
 # Hyperparameters
-EMBED_SIZE = 256
-HIDDEN_SIZE = 512
-NUM_LAYERS = 2
-LEARNING_RATE = 1e-4
-NUM_EPOCHS = 10
-BATCH_SIZE = 32
+EMBED_SIZE = 512
+HIDDEN_SIZE = 1024
+NUM_LAYERS = 3
+LEARNING_RATE = 1e-3
+NUM_EPOCHS = 15
+BATCH_SIZE = 64
 
 # Dataset paths
 ROOT_DIR = "../dataset"
 TRAIN_CAPTIONS = "../dataset/captions.txt"
 
 # Save paths
-MODEL_PATH = "../artifacts/models/image_captioning_model2.pth"
-CHECKPOINT_BASE_PATH = "../artifacts/checkpoints/exp2"
-SUMMARY_WRITER_PATH = "../runs/exp2"
+MODEL_PATH = "../artifacts/models/image_captioning_model4.pth"
+CHECKPOINT_BASE_PATH = "../artifacts/checkpoints/exp4"
+SUMMARY_WRITER_PATH = "../runs/exp4"
 
 
 def train():

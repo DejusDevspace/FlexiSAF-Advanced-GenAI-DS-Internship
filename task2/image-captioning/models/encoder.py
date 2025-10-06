@@ -12,7 +12,7 @@ class EncoderCNN(nn.Module):
         super(EncoderCNN, self).__init__()
 
         # Load pre-trained ResNet50 model
-        resnet = models.resnet50(pretrained=True)
+        resnet = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
 
         # Remove last (fully connected) layer
         layers = list(resnet.children())[:-1]

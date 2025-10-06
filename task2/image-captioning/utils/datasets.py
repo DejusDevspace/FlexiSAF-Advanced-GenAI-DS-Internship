@@ -16,7 +16,7 @@ class FlickrDataset(Dataset):
         root_dir: str,
         captions_file: str,
         transform=None,
-        freq_threshold: int = 5
+        freq_threshold: int = 3
     ):
         self.root_dir = root_dir
         self.df = self.load_captions(captions_file)

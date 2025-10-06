@@ -1,6 +1,7 @@
 from collections import Counter
 import nltk
-nltk.download('punkt')
+# nltk.download('punkt')
+import string
 
 
 class Vocabulary:
@@ -40,8 +41,10 @@ class Vocabulary:
                     idx += 1
 
     def tokenize(self, text: str):
-        """Convert text to lowercase tokens."""
-        return [tok.lower() for tok in nltk.tokenize.word_tokenize(text)]
+        """Convert text to lowercase tokens and remove punctuation."""
+        tokens = nltk.tokenize.word_tokenize(text.lower())
+        tokens = [tok for tok in tokens if tok not in string.punctuation]
+        return tokens
 
     def numericalize(self, text: str):
         """
