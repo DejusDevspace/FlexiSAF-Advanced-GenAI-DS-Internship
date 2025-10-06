@@ -92,7 +92,7 @@ def train():
             captions = captions.to(device)
 
             # Forward pass
-            outputs = model(images, captions)
+            outputs = model(images, captions[:, :-1])
 
             # Calculate loss
             # outputs: (batch_size, caption_length, vocab_size)
