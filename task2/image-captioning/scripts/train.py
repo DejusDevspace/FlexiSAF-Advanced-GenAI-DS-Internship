@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import logging
 import torch
 import torch.nn as nn
@@ -5,8 +9,8 @@ import torch.optim as optim
 from torchvision import transforms
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
-from ..models.captioner import ImageCaptioningModel
-from ..utils.helpers import get_data_loader
+from models.captioner import ImageCaptioningModel
+from utils.helpers import get_data_loader
 
 # Configure logging
 logger = logging.getLogger(__name__)

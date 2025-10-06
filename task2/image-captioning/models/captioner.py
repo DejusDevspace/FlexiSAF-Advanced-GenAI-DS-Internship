@@ -1,6 +1,6 @@
 import torch.nn as nn
-from encoder import EncoderCNN
-from decoder import DecoderRNN
+from .encoder import EncoderCNN
+from .decoder import DecoderRNN
 
 
 class ImageCaptioningModel(nn.Module):

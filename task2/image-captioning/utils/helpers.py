@@ -1,6 +1,6 @@
 import torch
-from datasets import FlickrDataset
-from captions import CaptionCollate
+from .datasets import FlickrDataset
+from .captions import CaptionCollate
 
 def get_data_loader(
     root_dir: str,
