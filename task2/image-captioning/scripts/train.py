@@ -18,8 +18,8 @@ logger = logging.getLogger(__name__)
 # Hyperparameters
 EMBED_SIZE = 256
 HIDDEN_SIZE = 512
-NUM_LAYERS = 1
-LEARNING_RATE = 3e-4
+NUM_LAYERS = 2
+LEARNING_RATE = 1e-4
 NUM_EPOCHS = 10
 BATCH_SIZE = 32
 
@@ -28,8 +28,9 @@ ROOT_DIR = "../dataset"
 TRAIN_CAPTIONS = "../dataset/captions.txt"
 
 # Save paths
-MODEL_PATH = "../artifacts/models/image_captioning_model.pth"
-CHECKPOINT_BASE_PATH = "../artifacts/checkpoints"
+MODEL_PATH = "../artifacts/models/image_captioning_model2.pth"
+CHECKPOINT_BASE_PATH = "../artifacts/checkpoints/exp2"
+SUMMARY_WRITER_PATH = "../runs/exp2"
 
 
 def train():
@@ -50,6 +51,7 @@ def train():
     ])
 
     # Load data
+    print("Loading data...")
     logger.info("Loading data...")
     train_loader, dataset = get_data_loader(
         ROOT_DIR,
@@ -59,6 +61,7 @@ def train():
     )
 
     vocab_size = len(dataset.vocab)
+    print("Vocabulary Size:", vocab_size)
     logger.info("Vocabulary size: %d", vocab_size)
 
     # Initialize model
@@ -74,7 +77,7 @@ def train():
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
     # For logging
-    writer = SummaryWriter("runs/exp1")
+    writer = SummaryWriter(SUMMARY_WRITER_PATH)
     step = 0
 
     # Training loop
@@ -139,6 +142,7 @@ def train():
         'num_layers': NUM_LAYERS,
     }, MODEL_PATH)
 
+    print(f"Training complete! Model saved to '{MODEL_PATH}'")
     logger.info("Training complete! Model saved to '%s'", MODEL_PATH)
     writer.close()
 

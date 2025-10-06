@@ -29,4 +29,5 @@ class ImageCaptioningModel(nn.Module):
         """Generate caption for a single image."""
         features = self.encoder(image)
         caption = self.decoder.sample(features, max_length)
+        # caption = self.decoder.beam_search(features, beam_size=5)
         return caption

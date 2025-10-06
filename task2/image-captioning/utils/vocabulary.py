@@ -9,7 +9,7 @@ class Vocabulary:
     Builds vocabulary from training captions.
     """
 
-    def __init__(self, freq_threshold:int = 5):
+    def __init__(self, freq_threshold: int = 3):
         # Special tokens
         self.itos = {0: "<pad>", 1: "<start>", 2: "<end>", 3: "<unk>"}
         self.stoi = {"<pad>": 0, "<start>": 1, "<end>": 2, "<unk>": 3}

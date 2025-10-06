@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 
 class DecoderRNN(nn.Module):
@@ -80,3 +81,57 @@ class DecoderRNN(nn.Module):
                 break
 
         return captions
+
+    def beam_search(self, features, beam_size=3, max_length=20):
+        """
+        Generate captions using beam search.
+        Args:
+            features: image features (1, embed_size)
+            beam_size: number of beams
+            max_length: maximum caption length
+        Returns:
+            best_caption: list of word indices
+        """
+        device = features.device
+
+        # Start token index
+        start_token = 1
+        end_token = 2
+
+        # Initialize beam: (sequence, hidden_state, log_prob)
+        inputs = features.unsqueeze(1)  # (1, 1, embed_size)
+        states = None
+        beams = [(torch.tensor([start_token], device=device), states, 0.0)]  # log prob = 0
+
+        for _ in range(max_length):
+            candidates = []
+            for seq, states, score in beams:
+                if seq[-1].item() == end_token:
+                    # Already ended, keep as is
+                    candidates.append((seq, states, score))
+                    continue
+
+                # Pass last word through embedding + LSTM
+                if seq.size(0) == 1:  # first step: input = image features
+                    inputs = features.unsqueeze(1)
+                else:
+                    inputs = self.embed(seq[-1]).unsqueeze(0).unsqueeze(1)  # (1,1,embed_size)
+
+                hidden, states = self.lstm(inputs, states)
+                outputs = self.linear(hidden.squeeze(1))  # (1, vocab_size)
+                log_probs = F.log_softmax(outputs, dim=1)
+
+                # Get top beam_size candidates
+                topk_log_probs, topk_ids = torch.topk(log_probs, beam_size, dim=1)
+
+                for k in range(beam_size):
+                    next_seq = torch.cat([seq, topk_ids[0, k].unsqueeze(0)])
+                    candidates.append((next_seq, states, score + topk_log_probs[0, k].item()))
+
+            # Select top beam_size sequences
+            beams = sorted(candidates, key=lambda x: x[2], reverse=True)[:beam_size]
+
+        # Pick the best sequence (highest log prob)
+        best_seq = beams[0][0].tolist()
+        return best_seq
+
