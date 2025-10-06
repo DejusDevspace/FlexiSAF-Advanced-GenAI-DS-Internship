@@ -76,7 +76,7 @@ class DecoderRNN(nn.Module):
             inputs = self.embed(predicted).unsqueeze(1)
 
             # Stop if <end> token is generated
-            if predicted.item() == 1:  # Assuming 1 is <end> token
+            if predicted.item() == 2:  #  <end> token
                 break
 
         return captions
