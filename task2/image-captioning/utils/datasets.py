@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import torch
 from torch.utils.data import Dataset
-from .vocabulary import Vocabularyg
+from .vocabulary import Vocabulary
 from PIL import Image
 
 
