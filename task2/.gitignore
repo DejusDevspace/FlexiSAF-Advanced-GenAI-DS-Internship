@@ -1,6 +1,7 @@
-# Dataset files
+# Dataset, data and checkpoint files
 image-captioning/dataset/
 image-captioning/artifacts/
+dqn-reinforcement-learning/artifacts/
 
 # Logging and checkpoints
 image-captioning/runs/
