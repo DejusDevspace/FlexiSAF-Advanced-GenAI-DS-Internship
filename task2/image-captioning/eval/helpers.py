@@ -5,6 +5,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
+from nltk.translate.bleu_score import sentence_bleu
 from utils.datasets import FlickrDataset
 from utils.captions import CaptionCollate
 from models.captioner import ImageCaptioningModel
@@ -68,3 +69,13 @@ def generate_caption(image_path, model, vocab, device, max_length=20):
 
     caption = " ".join(caption_words)
     return caption, image
+
+def calculate_bleu(reference_captions, generated_caption):
+    """
+    reference_captions: list of actual captions
+    generated_caption: model's predicted caption
+    """
+    reference = [ref.split() for ref in reference_captions]
+    candidate = generated_caption.split()
+    score = sentence_bleu(reference, candidate)
+    return score
