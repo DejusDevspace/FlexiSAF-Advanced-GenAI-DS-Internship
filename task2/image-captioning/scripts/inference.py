@@ -19,13 +19,16 @@ def run_inference(checkpoint_path, image_path: str | None, multiple=False):
     if multiple:
         # For multiple images, use create_demo_grid
         image_paths = [
-            "../dataset/Images/95728664_06c43b90f1.jpg",
-            "../dataset/Images/124881487_36e668145d.jpg",
-            "../dataset/Images/101654506_8eb26cfb60.jpg",
-            "../dataset/Images/112178718_87270d9b4d.jpg"
+            "../dataset/test/2565657591_6c1cdfc092.jpg",
+            "../dataset/test/124881487_36e668145d.jpg",
+            "../dataset/test/101654506_8eb26cfb60.jpg",
+            "../dataset/test/112178718_87270d9b4d.jpg",
+            "../dataset/test/3127629248_a955b5763b.jpg",
+            "../dataset/test/3268407162_6274e0f74f.jpg"
         ]
         create_demo_grid(image_paths, model, vocab, device)
         return
+
     # Generate caption from image and save
     visualize_prediction(image_path, model, vocab, device)
 
@@ -33,5 +36,5 @@ def run_inference(checkpoint_path, image_path: str | None, multiple=False):
 if __name__ == "__main__":
     # Run demo inference
     checkpoint_path = "../artifacts/models/image_captioning_model4.pth"
-    image_path = "../dataset/Images/112178718_87270d9b4d.jpg"
-    run_inference(checkpoint_path, multiple=True, image_path=None)
+    image_path = "../dataset/test/93922153_8d831f7f01.jpg"
+    run_inference(checkpoint_path, multiple=False, image_path=image_path)
