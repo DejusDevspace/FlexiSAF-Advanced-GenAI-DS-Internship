@@ -20,6 +20,8 @@ The deliverable for module 1 can be found in the [task1](./task1) folder. It con
 
 **Performance Achievement**: ~0.99 ROC-AUC with custom ensemble architecture
 
+---
+
 ### [**MODULE 2: Deep Learning for Image Captioning**](./task2/)
 
 The deliverable for module 2 can be found in the [task2](./task2) folder. It contains two projects:
@@ -36,4 +38,4 @@ The deliverable for module 2 can be found in the [task2](./task2) folder. It con
 - ✅ Experience Replay (Stabilizing DQN training)
 - ✅ Target Network (Improving DQN stability)
 
-**Performance Achievement**: BLEU-4 score of ~0.31 for image captioning and successful training of DQN agent to balance the pole.
+**Performance Achievement**: BLEU-4 score of ~0.12 for image captioning and successful training of DQN agent to balance the pole.
