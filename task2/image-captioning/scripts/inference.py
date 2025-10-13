@@ -37,4 +37,4 @@ if __name__ == "__main__":
     # Run demo inference
     checkpoint_path = "../artifacts/models/image_captioning_model4.pth"
     image_path = "../dataset/test/93922153_8d831f7f01.jpg"
-    run_inference(checkpoint_path, multiple=False, image_path=image_path)
+    run_inference(checkpoint_path, multiple=True, image_path=image_path)

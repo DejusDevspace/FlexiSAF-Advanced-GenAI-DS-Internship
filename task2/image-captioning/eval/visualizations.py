@@ -1,11 +1,13 @@
 import matplotlib.pyplot as plt
-from .helpers import generate_caption
+from .helpers import generate_caption, calculate_bleu
 
 def visualize_prediction(image_path, model, vocab, device):
     """
     Generate and display caption for an image.
     """
     caption, image = generate_caption(image_path, model, vocab, device)
+    bleu_score = calculate_bleu(image_path, caption, captions_file='../dataset/captions.txt')
+    caption += f"\nBLEU-4: {bleu_score:.2f}"
 
     # Display image with caption
     plt.figure(figsize=(10, 6))
@@ -34,6 +36,8 @@ def create_demo_grid(image_paths, model, vocab, device):
 
     for idx, img_path in enumerate(image_paths):
         caption, image = generate_caption(img_path, model, vocab, device)
+        bleu_score = calculate_bleu(img_path, caption, captions_file='../dataset/captions.txt')
+        caption += f"\nBLEU-4: {bleu_score:.2f}"
 
         axes[idx].imshow(image)
         axes[idx].axis('off')
@@ -44,5 +48,5 @@ def create_demo_grid(image_paths, model, vocab, device):
         axes[idx].axis('off')
 
     plt.tight_layout()
-    plt.savefig('../img/demo_grid.png', dpi=150, bbox_inches='tight')
+    plt.savefig('../img/demo_grid2.png', dpi=150, bbox_inches='tight')
     plt.show()
