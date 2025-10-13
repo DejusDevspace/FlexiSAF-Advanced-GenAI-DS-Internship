@@ -22,7 +22,7 @@ The deliverable for module 1 can be found in the [task1](./task1) folder. It con
 
 ---
 
-### [**MODULE 2: Deep Learning for Image Captioning**](./task2/)
+### [**MODULE 2: Advanced Deep Learning and Reinforcement Learning**](./task2/)
 
 The deliverable for module 2 can be found in the [task2](./task2) folder. It contains two projects:
 - The implementation of an **Image Captioning model** using PyTorch that automatically generates descriptive captions for images. The model uses an **Encoder-Decoder architecture** with a pre-trained ResNet50 CNN as the encoder and an LSTM network as the decoder.
